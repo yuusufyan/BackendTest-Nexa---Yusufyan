@@ -13,7 +13,7 @@ const port: number = Number(process.env.APP_PORT) || 3000;
 
 // app.use(bodyParser.json());
 // app.use(cors());
-app.use(ResponseHandler)
+app.use(ResponseHandler);
 
 app.use(express.json());
 
@@ -21,24 +21,22 @@ app.use(express.json());
 //   console.log(`Server jalan di port ${port} 🚀`);
 // });
 
-app.get("/", (req, res) => {
-  res.send("🔥 Hello from Express + TypeScript!");
-});
-app.use("/auth", authRouter)
-
 AppDataSource.initialize()
   .then(() => {
-    logging.info('Database connection established');
+    logging.info("Database connection established");
     app.listen(port, () => {
       logging.info(`Server running on http://${process.env.APP_HOST}:${port}`);
     });
+    app.use("/auth", authRouter);
   })
   .catch((e) => {
     logging.error(`Unable to connect to database: ${e}`);
     process.exit(1);
   });
 
-
+app.get("/", (req, res) => {
+  res.send("🔥 Hello from Express + TypeScript!");
+});
 
 
 export default app;

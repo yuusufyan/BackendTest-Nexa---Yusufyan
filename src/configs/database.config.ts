@@ -1,7 +1,8 @@
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
-import { Admin, ConnectOptions, DataSource } from "typeorm";
+import { ConnectOptions, DataSource } from "typeorm";
 import { AdminToken } from "../entities/admin_token.entity";
+import { Admin } from "../entities/admin.entity";
 
 dotenv.config();
 
@@ -14,5 +15,5 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   entities: [Admin, AdminToken],
   synchronize: false,
-  logging: true,
+  logging: false,
 });
